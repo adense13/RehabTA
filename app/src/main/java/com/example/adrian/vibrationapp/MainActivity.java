@@ -1,5 +1,7 @@
 package com.example.adrian.vibrationapp;
 
+//import android.graphics.Camera;
+import android.hardware.Camera;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.VibrationEffect;
@@ -9,10 +11,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.security.Policy;
+
 public class MainActivity extends AppCompatActivity {
 
     Vibrator vibrator;
     boolean isVibrating = false;
+    boolean isLight = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,30 @@ public class MainActivity extends AppCompatActivity {
                 vibrate(pattern);
             }
         });
+
+        Button btn_flashlight = findViewById(R.id.Flashlight1);
+        btn_pattern2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Camera cam = Camera.open();
+                Camera.Parameters parameters = cam.getParameters();
+                //stänger av
+                if(isLight){
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    cam.setParameters(parameters);
+                    cam.stopPreview();
+                    isLight = false;
+
+                    //sätter på
+                }else{
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    cam.setParameters(parameters);
+                    cam.startPreview();
+                    isLight = true;
+                }
+
+            }
+        });
+
     }
 
     private void vibrate(long[] pattern){

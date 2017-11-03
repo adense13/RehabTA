@@ -14,8 +14,6 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
     boolean isVibrating = false;
 
-    //Test commit, hej Adde
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

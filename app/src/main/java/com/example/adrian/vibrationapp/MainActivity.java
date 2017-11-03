@@ -1,6 +1,5 @@
 package com.example.adrian.vibrationapp;
 
-//import android.graphics.Camera;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Parcel;
@@ -19,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
     boolean isVibrating = false;
     boolean isLight = false;
-    boolean cameraOpen = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         //---BUTTONS--///
+
         Button btn_pattern1 = findViewById(R.id.btn_pattern1);
         btn_pattern1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //Custom pattern
                 long[] pattern = {3000, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000};
                 vibrate(pattern);
             }
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn_pattern2 = findViewById(R.id.btn_pattern2);
         btn_pattern2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //SOS pattern
                 long[] pattern = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000};
                 vibrate(pattern);
             }
@@ -50,24 +50,21 @@ public class MainActivity extends AppCompatActivity {
         final Camera.Parameters parameters = cam.getParameters();
         btn_flashlight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //if(deviceHasCameraFlash) {
 
-
-                    //stänger av
+                    //turns off flashlight
                     if (isLight) {
                         parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                         cam.setParameters(parameters);
                         cam.stopPreview();
                         isLight = false;
 
-                        //sätter på
+                    //turns on flashlight
                     } else {
                         parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
                         cam.setParameters(parameters);
                         cam.startPreview();
                         isLight = true;
                     }
-               // }
 
             }
         });

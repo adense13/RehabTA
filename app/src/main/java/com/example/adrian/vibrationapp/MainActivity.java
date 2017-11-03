@@ -1,6 +1,7 @@
 package com.example.adrian.vibrationapp;
 
 //import android.graphics.Camera;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
     boolean isVibrating = false;
     boolean isLight = false;
+    boolean cameraOpen = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +46,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btn_flashlight = findViewById(R.id.Flashlight1);
-        btn_pattern2.setOnClickListener(new View.OnClickListener() {
+        final Camera cam = Camera.open();
+        final Camera.Parameters parameters = cam.getParameters();
+        btn_flashlight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Camera cam = Camera.open();
-                Camera.Parameters parameters = cam.getParameters();
-                //stänger av
-                if(isLight){
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    cam.setParameters(parameters);
-                    cam.stopPreview();
-                    isLight = false;
+                //if(deviceHasCameraFlash) {
 
-                    //sätter på
-                }else{
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                    cam.setParameters(parameters);
-                    cam.startPreview();
-                    isLight = true;
-                }
+
+                    //stänger av
+                    if (isLight) {
+                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                        cam.setParameters(parameters);
+                        cam.stopPreview();
+                        isLight = false;
+
+                        //sätter på
+                    } else {
+                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                        cam.setParameters(parameters);
+                        cam.startPreview();
+                        isLight = true;
+                    }
+               // }
 
             }
         });

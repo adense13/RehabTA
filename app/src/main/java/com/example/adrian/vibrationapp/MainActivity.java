@@ -1,13 +1,18 @@
 package com.example.adrian.vibrationapp;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,11 +51,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btn_flashlight = findViewById(R.id.Flashlight1);
-        final Camera cam = Camera.open();
-        final Camera.Parameters parameters = cam.getParameters();
+
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
+
         btn_flashlight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                final Camera cam = Camera.open();
+                final Camera.Parameters parameters = cam.getParameters();
                     //turns off flashlight
                     if (isLight) {
                         parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
@@ -81,5 +88,11 @@ public class MainActivity extends AppCompatActivity {
             //VibrationEffect vibrationEffect = Parcelable.Creator<VibrationEffect>();
             vibrator.vibrate(pattern, -1); //DEPRECATED METHOD :((( pls find the correct way to do dis
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.i("tag","access to camera is OK");
     }
 }

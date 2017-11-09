@@ -1,12 +1,14 @@
 package com.example.adrian.vibrationapp;
 
 //import android.graphics.Camera;
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
                 vibrate(pattern);
             }
         });
-
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
         Button btn_flashlight = findViewById(R.id.Flashlight1);
-        final Camera cam = Camera.open();
-        final Camera.Parameters parameters = cam.getParameters();
+
         btn_flashlight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //if(deviceHasCameraFlash) {
-
+                final Camera cam = Camera.open();
+                final Camera.Parameters parameters = cam.getParameters();
 
                     //stänger av
                     if (isLight) {

@@ -95,4 +95,6 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.i("tag","access to camera is OK");
     }
+
+    //Hallå Adde
 }

@@ -6,48 +6,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.adrian.vibrationapp.MainActivity">
 
-    <Button
-        android:id="@+id/btn_pattern1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="PATTERN 1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_pattern2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="PATTERN 2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pattern1" />
-
-    <Button
-        android:id="@+id/Flashlight1"
-        android:layout_width="98dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Flashlight1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pattern2" />
-
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/brandlarm_view"
         android:layout_width="371dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="96dp"
+        android:layout_marginStart="4dp"
         android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="178dp">
+        tools:ignore="MissingConstraints"
+        android:layout_marginLeft="4dp">
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="Button"
@@ -59,8 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Switch"
+            android:layout_marginRight="8dp"
+            android:text="On/Off"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="10dp" />
 
         <TextView
@@ -68,6 +45,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BRANDLARM"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_pattern1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="PATTERN 1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp" />
+
+    <Button
+        android:id="@+id/btn_pattern2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="PATTERN 2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pattern1"
+        android:layout_marginLeft="8dp" />
+
+    <Button
+        android:id="@+id/Flashlight1"
+        android:layout_width="98dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Flashlight1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pattern2"
+        android:layout_marginLeft="8dp" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ringklocka_view"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="4dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:layout_marginLeft="4dp">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="On/Off"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RINGKLOCKA"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </android.support.constraint.ConstraintLayout>
 

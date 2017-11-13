@@ -2,6 +2,7 @@ package com.example.adrian.vibrationapp;
 
 //import android.graphics.Camera;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Parcel;
@@ -31,6 +32,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
+        //Views
+        View brandlarmView = findViewById(R.id.brandlarm_view);
+        brandlarmView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BrandlarmSettings.class);
+                startActivity(intent);
+            }
+        });
+
+        View ringklockaView = findViewById(R.id.ringklocka_view);
+        ringklockaView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RingklockaSettings.class);
+                startActivity(intent);
+            }
+        });
+
+
         //---BUTTONS--///
         Button btn_pattern1 = findViewById(R.id.btn_pattern1);
         btn_pattern1.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 vibrate(pattern);
             }
         });
+
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
         Button btn_flashlight = findViewById(R.id.Flashlight1);
         final Camera cam = Camera.open();

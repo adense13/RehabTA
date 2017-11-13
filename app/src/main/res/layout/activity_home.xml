@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -7,6 +12,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.adrian.vibrationapp.Home">
+
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -34,6 +40,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <Spinner
+        android:id="@+id/vibration_spinner"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

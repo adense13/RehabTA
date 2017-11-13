@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RehabTA</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_brandlarm">Brandlarm Settings</string>
+    <string name="title_activity_ringklocka">Ringklocka Settings</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 </resources>

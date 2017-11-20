@@ -39,4 +39,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vibration_spinner" />
 
+    <Button
+        android:id="@+id/preview_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:onClick="previewVibration"
+        android:text="Preview"
+        app:layout_constraintTop_toBottomOf="@+id/vibration_spinner"
+        app:layout_constraintLeft_toRightOf="@+id/save_button1"/>
+
 </android.support.constraint.ConstraintLayout>

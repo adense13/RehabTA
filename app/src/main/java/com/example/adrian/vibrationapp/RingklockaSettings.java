@@ -2,14 +2,20 @@ package com.example.adrian.vibrationapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 public class RingklockaSettings extends AppCompatActivity {
     Spinner vibrationSpinner;
+    boolean isVibrating = false;
+    Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +28,7 @@ public class RingklockaSettings extends AppCompatActivity {
         String[] items = new String[]{"No vibration", "Vibration 1", "Vibration 2", "Vibration 3"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //Set prompt message
         vibrationSpinner.setPrompt("Välj vibration");
         //set the spinners adapter to the previously created one.
@@ -44,6 +50,29 @@ public class RingklockaSettings extends AppCompatActivity {
         if(spinnerValue != -1) {
             // set the selected value of the spinner
             vibrationSpinner.setSelection(spinnerValue);
+        }
+    }
+
+    public void previewVibration(View view){
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
+        //Temp IF-sats för att förhindra crash
+        if(vibrationSpinner.getSelectedItemPosition()<3){
+            vibrate(pattern.get(vibrationSpinner.getSelectedItemPosition()));
+        }
+
+        Log.i("vibcheck", "vibrating");
+    }
+
+    private void vibrate(long[] pattern){
+        if(isVibrating){
+            isVibrating = false;
+            vibrator.cancel();
+        }
+        else {
+            isVibrating = true;
+            //VibrationEffect vibrationEffect = Parcelable.Creator<VibrationEffect>();
+            vibrator.vibrate(pattern, -1); //DEPRECATED METHOD :((( pls find the correct way to do dis
         }
     }
 

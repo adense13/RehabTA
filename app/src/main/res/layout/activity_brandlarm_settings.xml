@@ -37,7 +37,19 @@
         android:onClick="saveSettings"
         android:text="Save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vibration_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/vibration_spinner"
+        app:layout_constraintRight_toLeftOf="@+id/preview_button"/>
+
+    <Button
+        android:id="@+id/preview_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:onClick="previewVibration"
+        android:text="Preview"
+        app:layout_constraintTop_toBottomOf="@+id/vibration_spinner"
+        app:layout_constraintLeft_toRightOf="@+id/save_button1"/>
 
 
 

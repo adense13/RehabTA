@@ -2,6 +2,7 @@ package com.example.adrian.vibrationapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +10,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 public class BrandlarmSettings extends AppCompatActivity {
         Spinner vibrationSpinner;
         int test;
+        boolean isVibrating = false;
+        Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +33,6 @@ public class BrandlarmSettings extends AppCompatActivity {
         connectionSpinner.setPrompt("Välj device");
         connectionSpinner.setAdapter(adapter2);
 
-
-
     }
 
     @Override
@@ -41,6 +44,29 @@ public class BrandlarmSettings extends AppCompatActivity {
         if(spinnerValue != -1) {
             // set the selected value of the spinner
             vibrationSpinner.setSelection(spinnerValue);
+        }
+    }
+
+    public void previewVibration(View view){
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
+        //Temp IF-sats för att förhindra crash
+        if(vibrationSpinner.getSelectedItemPosition()<3){
+            vibrate(pattern.get(vibrationSpinner.getSelectedItemPosition()));
+        }
+
+        Log.i("vibcheck", "vibrating");
+    }
+
+    private void vibrate(long[] pattern){
+        if(isVibrating){
+            isVibrating = false;
+            vibrator.cancel();
+        }
+        else {
+            isVibrating = true;
+            //VibrationEffect vibrationEffect = Parcelable.Creator<VibrationEffect>();
+            vibrator.vibrate(pattern, -1); //DEPRECATED METHOD :((( pls find the correct way to do dis
         }
     }
 

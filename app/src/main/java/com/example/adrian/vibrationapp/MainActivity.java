@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.security.Policy;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,20 +25,22 @@ public class MainActivity extends AppCompatActivity {
     boolean isVibrating = false;
     boolean isLight = false;
     boolean cameraOpen = false;
-
+    ArrayList<long[]> patterns = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
+        //Populating Patterns Array
+        createPatterns();
         //Views
         View brandlarmView = findViewById(R.id.brandlarm_view);
         brandlarmView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, BrandlarmSettings.class);
+                intent.putExtra("vibrations", patterns);
                 startActivity(intent);
             }
         });
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RingklockaSettings.class);
+                intent.putExtra("vibrations", patterns);
                 startActivity(intent);
             }
         });
@@ -56,16 +60,16 @@ public class MainActivity extends AppCompatActivity {
         Button btn_pattern1 = findViewById(R.id.btn_pattern1);
         btn_pattern1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                long[] pattern = {3000, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000};
-                vibrate(pattern);
+                //long[] pattern = {3000, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000};
+                vibrate(patterns.get(1));
             }
         });
 
         Button btn_pattern2 = findViewById(R.id.btn_pattern2);
         btn_pattern2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                long[] pattern = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000};
-                vibrate(pattern);
+                //long[] pattern = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000};
+                vibrate(patterns.get(2));
             }
         });
 
@@ -75,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         final Camera.Parameters parameters = cam.getParameters();
         btn_flashlight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //if(deviceHasCameraFlash) {
-
 
                     //stänger av
                     if (isLight) {
@@ -92,11 +94,22 @@ public class MainActivity extends AppCompatActivity {
                         cam.startPreview();
                         isLight = true;
                     }
-               // }
 
             }
         });
 
+    }
+
+    private void createPatterns(){
+        //Ingen vibration
+        long[] pattern0 ={0, 0};
+        patterns.add(pattern0);
+
+        long[] pattern1 = {3000, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000};
+        patterns.add(pattern1);
+
+        long[] pattern2 = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000};
+        patterns.add(pattern2);
     }
 
     private void vibrate(long[] pattern){

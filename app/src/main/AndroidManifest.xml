@@ -28,9 +28,10 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BrandlarmSettings"
-            android:label="@string/title_activity_brandlarm"/>
-        <activity android:name=".RingklockaSettings"
-            android:label="@string/title_activity_ringklocka"></activity>
+            android:label="@string/title_activity_brandlarm" />
+        <activity
+            android:name=".RingklockaSettings"
+            android:label="@string/title_activity_ringklocka" />
     </application>
 
 </manifest>

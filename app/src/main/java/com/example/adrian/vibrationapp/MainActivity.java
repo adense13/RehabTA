@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //---BUTTONS---/// To be removed
+        //---TEST BUTTONS---/// To be removed
         Button btn_pattern1 = findViewById(R.id.btn_pattern1);
         btn_pattern1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -14,15 +14,26 @@ import java.util.ArrayList;
 
 public class BrandlarmSettings extends AppCompatActivity {
         Spinner vibrationSpinner;
-        int test;
         boolean isVibrating = false;
         Vibrator vibrator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brandlarm_settings);
         vibrationSpinner = findViewById(R.id.vibration_spinner);
-        String[] vibrationItems = new String[]{"No vibration", "Vibration 1", "Vibration 2", "Vibration 3"};
+        ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
+        int nbrOfVibrations = pattern.size();
+        String[] vibrationItems = new String[nbrOfVibrations];
+        for(int i=0; i<nbrOfVibrations; i++){
+            if(i==0){
+                vibrationItems[i] = "No vibration";
+            }else{
+                vibrationItems[i] = "Vibration " + i;
+            }
+
+        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, vibrationItems);
         vibrationSpinner.setPrompt("Välj vibration");
         vibrationSpinner.setAdapter(adapter);
@@ -48,13 +59,9 @@ public class BrandlarmSettings extends AppCompatActivity {
     }
 
     public void previewVibration(View view){
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
-        //Temp IF-sats för att förhindra crash
-        if(vibrationSpinner.getSelectedItemPosition()<3){
-            vibrate(pattern.get(vibrationSpinner.getSelectedItemPosition()));
-        }
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrate(pattern.get(vibrationSpinner.getSelectedItemPosition()));
         Log.i("vibcheck", "vibrating");
     }
 

@@ -25,10 +25,21 @@ public class RingklockaSettings extends AppCompatActivity {
         vibrationSpinner = findViewById(R.id.vibration_spinner);
         //create a list of items for the spinner.
 
-        String[] items = new String[]{"No vibration", "Vibration 1", "Vibration 2", "Vibration 3"};
+        ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
+        int nbrOfVibrations = pattern.size();
+        String[] vibrationItems = new String[nbrOfVibrations];
+        for(int i=0; i<nbrOfVibrations; i++){
+            if(i==0){
+                vibrationItems[i] = "No vibration";
+            }else{
+                vibrationItems[i] = "Vibration " + i;
+            }
+
+        }
+
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, vibrationItems);
         //Set prompt message
         vibrationSpinner.setPrompt("Välj vibration");
         //set the spinners adapter to the previously created one.
@@ -56,11 +67,7 @@ public class RingklockaSettings extends AppCompatActivity {
     public void previewVibration(View view){
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
-        //Temp IF-sats för att förhindra crash
-        if(vibrationSpinner.getSelectedItemPosition()<3){
-            vibrate(pattern.get(vibrationSpinner.getSelectedItemPosition()));
-        }
-
+        vibrate(pattern.get(vibrationSpinner.getSelectedItemPosition()));
         Log.i("vibcheck", "vibrating");
     }
 

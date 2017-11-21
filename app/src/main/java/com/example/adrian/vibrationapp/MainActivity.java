@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
     boolean isVibrating = false;
     boolean isLight = false;
-    boolean cameraOpen = false;
     ArrayList<long[]> patterns = new ArrayList<>();
 
     @Override
@@ -56,11 +55,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //---BUTTONS--///
+        //---BUTTONS---/// To be removed
         Button btn_pattern1 = findViewById(R.id.btn_pattern1);
         btn_pattern1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //long[] pattern = {3000, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000};
                 vibrate(patterns.get(1));
             }
         });
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         Button btn_pattern2 = findViewById(R.id.btn_pattern2);
         btn_pattern2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //long[] pattern = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000};
                 vibrate(patterns.get(2));
             }
         });
@@ -130,7 +127,5 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.i("tag","access to camera is OK");
     }
-
-    //Hallå Adde
 
 }

@@ -3,6 +3,7 @@ package com.example.adrian.vibrationapp;
 //import android.graphics.Camera;
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Parcel;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.security.Policy;
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         //Populating Patterns Array
         createPatterns();
@@ -38,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
         brandlarmView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BrandlarmSettings.class);
+                SharedPreferences sharedPref = getSharedPreferences("MainPref",0);
+                SharedPreferences.Editor prefEdit = sharedPref.edit();
+                EditText textView2 = findViewById(R.id.textView2);
+                prefEdit.putString("title2", textView2.getText().toString());
+                prefEdit.commit();
+                Log.i("title2", textView2.getText().toString());
+                Intent intent = new Intent(MainActivity.this, Settings.class);
                 intent.putExtra("vibrations", patterns);
                 startActivity(intent);
             }
@@ -48,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         ringklockaView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPref = getSharedPreferences("MainPref",MODE_PRIVATE);
+                SharedPreferences.Editor prefEdit = sharedPref.edit();
+                EditText textView3 = findViewById(R.id.textView3);
+                prefEdit.putString("title3", textView3.getText().toString());
+                prefEdit.commit();
                 Intent intent = new Intent(MainActivity.this, RingklockaSettings.class);
                 intent.putExtra("vibrations", patterns);
                 startActivity(intent);
@@ -94,6 +110,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        SharedPreferences sharedPref = getSharedPreferences("MainPref",MODE_PRIVATE);
+        EditText textView2 = findViewById(R.id.textView2);
+        EditText textView3 = findViewById(R.id.textView3);
+        String text2 = sharedPref.getString("title2","Default");
+        Log.i("Text2", text2);
+        String text3 = sharedPref.getString("title3","Default");
+        if(text2!="Default"){
+            textView2.setText(text2);
+        }
+        if(text3!="Default"){
+            textView3.setText(text3);
+        }
+
 
     }
 

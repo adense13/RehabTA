@@ -38,39 +38,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </android.support.constraint.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btn_pattern1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="PATTERN 1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ringklocka_view"
-        android:layout_marginLeft="8dp" />
-
-    <Button
-        android:id="@+id/btn_pattern2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="PATTERN 2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pattern1"
-        android:layout_marginLeft="8dp" />
-
-    <Button
-        android:id="@+id/Flashlight1"
-        android:layout_width="98dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Flashlight1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pattern2"
-        android:layout_marginLeft="8dp" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ringklocka_view"
         android:layout_width="fill_parent"

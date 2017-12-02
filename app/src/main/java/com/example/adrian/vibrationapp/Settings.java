@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Settings extends AppCompatActivity {
     Spinner vibrationSpinner;
     Spinner connectionSpinner;
+    Spinner lightSpinner;
     boolean isVibrating = false;
     Vibrator vibrator;
 
@@ -24,6 +25,8 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         vibrationSpinner = findViewById(R.id.vibration_spinner);
         ArrayList<long[]> pattern = (ArrayList<long[]>) getIntent().getSerializableExtra("vibrations");
+
+
         int nbrOfVibrations = pattern.size();
         String[] vibrationItems = new String[nbrOfVibrations];
         for(int i=0; i<nbrOfVibrations; i++){
@@ -35,14 +38,26 @@ public class Settings extends AppCompatActivity {
 
         }
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, vibrationItems);
-        vibrationSpinner.setPrompt("Välj vibration");
+        vibrationSpinner.setPrompt("Choose vibration");
         vibrationSpinner.setAdapter(adapter);
         connectionSpinner = findViewById(R.id.connection_spinner);
         String[] connectionItems = new String[]{"IoT Brandlarm", "IoT Ringklocka"};
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, connectionItems);
-        connectionSpinner.setPrompt("Välj device");
+        connectionSpinner.setPrompt("Choose device");
         connectionSpinner.setAdapter(adapter2);
+
+        ArrayList<String> lights = (ArrayList<String>)getIntent().getSerializableExtra("lights");
+        int nbrOfLights = lights.size();
+        String[] lightItems = new String[nbrOfLights];
+        for(int i=0; i<nbrOfLights; i++){
+            lightItems[i] = lights.get(i);
+        }
+        lightSpinner = findViewById(R.id.light_spinner);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lightItems);
+        lightSpinner.setPrompt("Choose light setting");
+        lightSpinner.setAdapter(adapter3);
 
     }
 
@@ -60,6 +75,10 @@ public class Settings extends AppCompatActivity {
         if( deviceValue!=-1){
             connectionSpinner.setSelection(deviceValue);
         }
+        int lightValue = sharedPref.getInt("light", -1);
+        if(lightValue!=-1){
+            lightSpinner.setSelection(lightValue);
+        }
     }
 
     public void previewVibration(View view){
@@ -70,29 +89,27 @@ public class Settings extends AppCompatActivity {
     }
 
     private void vibrate(long[] pattern){
-        if(isVibrating){
-            isVibrating = false;
-            vibrator.cancel();
-        }
-        else {
-            isVibrating = true;
-            //VibrationEffect vibrationEffect = Parcelable.Creator<VibrationEffect>();
-            vibrator.vibrate(pattern, -1); //DEPRECATED METHOD :((( pls find the correct way to do dis
-        }
+        vibrator.cancel();
+        Log.i("hej", "hej");
+        vibrator.vibrate(pattern,0);
     }
 
-    public void saveSettings(View view)
-    {
+    public void cancelVibration(View view){
+        vibrator.cancel();
+    }
+
+    public void saveSettings(View view) {
         int vibrationChoice = vibrationSpinner.getSelectedItemPosition();
         int deviceChoice = connectionSpinner.getSelectedItemPosition();
+        int lightChoice = lightSpinner.getSelectedItemPosition();
         SharedPreferences sharedPref = getSharedPreferences("FileName",0);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putInt("brandlarmVibration",vibrationChoice);
         prefEditor.putInt("device", deviceChoice);
+        prefEditor.putInt("light", lightChoice);
         prefEditor.commit();
         Intent intent = new Intent(Settings.this, MainActivity.class);
         startActivity(intent);
     }
-
 
 }

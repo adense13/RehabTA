@@ -2,10 +2,13 @@ package com.example.adrian.vibrationapp;
 
 //import android.graphics.Camera;
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.VibrationEffect;
@@ -17,6 +20,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.app.NotificationManager;
+import android.support.v4.app.NotificationCompat;
 
 import java.security.Policy;
 import java.util.ArrayList;
@@ -24,20 +29,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Vibrator vibrator;
-    boolean isVibrating = false;
     boolean isLight = false;
     ArrayList<long[]> patterns = new ArrayList<>();
+    ArrayList<String> lights = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         //Populating Patterns Array
         createPatterns();
+        //Populating Lights Array
+        createLights();
         //Views
         View brandlarmView = findViewById(R.id.brandlarm_view);
         brandlarmView.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("title2", textView2.getText().toString());
                 Intent intent = new Intent(MainActivity.this, Settings.class);
                 intent.putExtra("vibrations", patterns);
+                intent.putExtra("lights", lights);
                 startActivity(intent);
             }
         });
@@ -64,31 +69,30 @@ public class MainActivity extends AppCompatActivity {
                 EditText textView3 = findViewById(R.id.textView3);
                 prefEdit.putString("title3", textView3.getText().toString());
                 prefEdit.commit();
-                Intent intent = new Intent(MainActivity.this, RingklockaSettings.class);
+                Intent intent = new Intent(MainActivity.this, Settings.class);
                 intent.putExtra("vibrations", patterns);
+                intent.putExtra("lights", lights);
                 startActivity(intent);
             }
         });
 
-
         //---TEST BUTTONS---/// To be removed
-        Button btn_pattern1 = findViewById(R.id.btn_pattern1);
-        btn_pattern1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                vibrate(patterns.get(1));
-            }
-        });
+        //Button btn_pattern1 = findViewById(R.id.btn_pattern1);
+        //btn_pattern1.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        vibrate(patterns.get(1));
+        //    }
+        //});
 
-        Button btn_pattern2 = findViewById(R.id.btn_pattern2);
-        btn_pattern2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                vibrate(patterns.get(2));
-            }
-        });
-
-        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
-        Button btn_flashlight = findViewById(R.id.Flashlight1);
-        final Camera cam = Camera.open();
+        //Button btn_pattern2 = findViewById(R.id.btn_pattern2);
+        //btn_pattern2.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        vibrate(patterns.get(2));
+        //    }
+        //});
+        //ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
+        //Button btn_flashlight = findViewById(R.id.Flashlight1);
+        /*final Camera cam = Camera.open();
         final Camera.Parameters parameters = cam.getParameters();
         btn_flashlight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
             }
-        });
+        });*/
 
     }
 
@@ -130,7 +134,14 @@ public class MainActivity extends AppCompatActivity {
             textView3.setText(text3);
         }
 
+    }
 
+    private void createLights(){
+        lights.add("No Light Settings");
+        lights.add("Red, Neutral");
+        lights.add("Red, Blinking");
+        lights.add("Blue, Neutral");
+        lights.add("Blue, Blinking");
     }
 
     private void createPatterns(){
@@ -138,25 +149,29 @@ public class MainActivity extends AppCompatActivity {
         long[] pattern0 ={0, 0};
         patterns.add(pattern0);
 
-        long[] pattern1 = {3000, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000};
+        long[] pattern1 = {0, 1000, 2000, 1000, 2000, 1000, 500, 1000, 500, 1000, 500, 1000, 2000};
         patterns.add(pattern1);
 
-        long[] pattern2 = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000};
+        long[] pattern2 = {0, 500, 50, 500, 50, 500, 1000, 1000, 50, 1000, 50, 1000, 1000, 500, 50, 500, 50, 500, 1000, 500};
         patterns.add(pattern2);
+
+        long[] pattern3 = {0, 1000, 2000, 1000, 2000, 1000, 2000, 1000, 2000, 1000, 2000, 1000, 2000};
+        patterns.add(pattern3);
+
+        long[] pattern4 = {0, 2000, 1000, 2000, 1000, 2000, 1000, 2000, 1000, 2000, 1000, 2000, 1000};
+        patterns.add(pattern4);
+
+        long[] pattern5 = {0, 1000, 500, 1000, 500, 1000, 500, 1000, 500, 1000, 500, 1000, 500};
+        patterns.add(pattern5);
     }
 
     private void vibrate(long[] pattern){
-        if(isVibrating){
-            isVibrating = false;
-            vibrator.cancel();
-        }
-        else {
-            isVibrating = true;
-            //VibrationEffect vibrationEffect = Parcelable.Creator<VibrationEffect>();
-            vibrator.vibrate(pattern, -1); //DEPRECATED METHOD :((( pls find the correct way to do dis
-        }
-    }
 
+        vibrator.cancel();
+        Log.i("hej", "hej");
+        vibrator.vibrate(pattern,0); //DEPRECATED METHOD :((( pls find the correct way to do dis
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

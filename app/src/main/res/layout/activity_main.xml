@@ -10,13 +10,14 @@
         android:id="@+id/brandlarm_view"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@android:color/darker_gray"
-        tools:ignore="MissingConstraints"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="4dp"
         android:padding="10dp"
-        >
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="4dp">
 
 
         <Switch
@@ -42,14 +43,12 @@
         android:id="@+id/ringklocka_view"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintTop_toBottomOf="@id/brandlarm_view"
         tools:ignore="MissingConstraints"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:padding="10dp"
         >
 

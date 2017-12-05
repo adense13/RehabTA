@@ -97,9 +97,8 @@
         android:layout_marginTop="4dp"
         android:onClick="cancelVibration"
         android:text="cancel"
-        app:layout_constraintTop_toBottomOf="@+id/light_spinner"
         app:layout_constraintLeft_toRightOf="@+id/preview_button"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/light_spinner" />
 
 
 

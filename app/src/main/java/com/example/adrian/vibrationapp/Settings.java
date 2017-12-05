@@ -92,10 +92,15 @@ public class Settings extends AppCompatActivity {
         vibrator.cancel();
         Log.i("hej", "hej");
         vibrator.vibrate(pattern,0);
+        isVibrating = true;
     }
 
     public void cancelVibration(View view){
-        vibrator.cancel();
+        if(isVibrating==true){
+            vibrator.cancel();
+            isVibrating = false;
+        }
+
     }
 
     public void saveSettings(View view) {

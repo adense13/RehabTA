@@ -75,4 +75,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </android.support.constraint.ConstraintLayout>
 
+    <Button
+        android:id="@+id/new_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:padding="10dp"
+        android:text="New"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ringklocka_view"
+        android:layout_marginLeft="4dp" />
+
 </android.support.constraint.ConstraintLayout>
